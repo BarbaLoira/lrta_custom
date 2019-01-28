@@ -15,6 +15,7 @@ public class LrtaAgent extends SimpleAgent {
 	private int t = 0;
 	public int executionConvergenceCost = 0;
 	public float planingCost = 0;
+	public List<Heuristica> heuristicas;
 
 	public LrtaAgent(Graph g, int[] memory, int meta) {
 		super(System.out);
@@ -57,7 +58,7 @@ public class LrtaAgent extends SimpleAgent {
 		}
 
 		performances(neighbors, proximoVizinho);
-
+		heuristicas = Util.heuristicas;
 		return proximoVizinho;
 	}
 

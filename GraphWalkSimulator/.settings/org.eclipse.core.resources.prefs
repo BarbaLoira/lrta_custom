@@ -1,4 +1,4 @@
 eclipse.preferences.version=1
 encoding//src/algorithms/lrta/LrtaAgent.java=UTF-8
-encoding//src/algorithms/lrtaDepressionAvoidance/LrtaCustom2Agent.java=UTF-8
+encoding//src/algorithms/lrtaDepressionAvoidance/DepressionAvoidanceAgent.java=UTF-8
 encoding//src/algorithms/nodecounting/NodeCountingAgent.java=UTF-8

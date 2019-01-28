@@ -9,7 +9,7 @@ import java.util.List;
 import yaps.graph.Graph;
 
 public abstract class Util {
-	private static List<Heuristica> heuristicas = new ArrayList<>();
+	public static List<Heuristica> heuristicas = new ArrayList<>();
 	public static Graph graph;
 	public static int meta;
 	private static int estadosConsiderados=0;

@@ -1,5 +1,7 @@
 package algorithms.lrta;
 
+import java.util.List;
+
 import yaps.graph.Graph;
 import yaps.simulator.core.AgentPosition;
 import yaps.simulator.multiagent.SimpleAgent;
@@ -12,7 +14,8 @@ public class LrtaAlgorithm extends SimpleMultiagentAlgorithm {
 	SimpleAgent[] agents;
 	Graph g;
 	int numAgents;
-
+	 
+	
 	public LrtaAlgorithm() {
 		super("Node Count");
 	}
@@ -21,7 +24,7 @@ public class LrtaAlgorithm extends SimpleMultiagentAlgorithm {
 	public void onSimulationEnd() {
 		for (int i = 0; i < numAgents; i++) {
 			System.out.println(((LrtaAgent) agents[i]).executionConvergenceCost);
-			System.out.println(((LrtaAgent) agents[i]).planingCost);
+			System.out.println(((LrtaAgent) agents[i]).planingCost); 
 		}
 		// does nothing
 	}

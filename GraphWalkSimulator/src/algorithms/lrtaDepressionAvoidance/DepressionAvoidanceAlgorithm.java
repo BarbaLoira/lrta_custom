@@ -1,21 +1,29 @@
 package algorithms.lrtaDepressionAvoidance;
 
+import algorithms.lrta.LrtaAgent;
 import yaps.graph.Graph;
 import yaps.simulator.core.AgentPosition;
 import yaps.simulator.multiagent.SimpleAgent;
 import yaps.simulator.multiagent.SimpleMultiagentAlgorithm;
 
 
-public class NodeCountingAlgorithm extends SimpleMultiagentAlgorithm {
+public class DepressionAvoidanceAlgorithm extends SimpleMultiagentAlgorithm {
 	
 	private int[] sharedMemory;  // mapeamento  "id do vertice" (usado como indice) -> "valor do vértice"
-
-	public NodeCountingAlgorithm(){
+	private int meta = 15;
+	SimpleAgent[] agents;
+	Graph g;
+	int numAgents;
+	public DepressionAvoidanceAlgorithm(){
 		super("Node Count");
 	}
 	
 	@Override
 	public void onSimulationEnd() {
+		for (int i = 0; i < numAgents; i++) {
+			System.out.println(((LrtaAgent) agents[i]).executionConvergenceCost);
+			System.out.println(((LrtaAgent) agents[i]).planingCost);
+		}
 		//does nothing
 	}
 
@@ -27,7 +35,7 @@ public class NodeCountingAlgorithm extends SimpleMultiagentAlgorithm {
 		
 		SimpleAgent[] agents = new SimpleAgent[numAgents];
 		for (int i = 0; i < numAgents; i++) {
-			agents[i] = new LrtaCustom2Agent(g, sharedMemory);
+			agents[i] = new DepressionAvoidanceAgent(g, sharedMemory,meta);
 		}
 		return agents;
 	}
