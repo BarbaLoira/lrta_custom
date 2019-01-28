@@ -405,25 +405,25 @@ public class Graph {
 		StringBuilder builder = new StringBuilder();
 
 		if (representation != GraphDataRepr.LISTS) {
-			builder.append("\n");
+			/*builder.append("\n");
 			for (int i = 0; i < matrix.length; i++) {
 				for (int j = 0; j < matrix.length; j++) {
 					builder.append(" ");
 					builder.append(matrix[i][j]);
 				}
 				builder.append("\n");
-			}
+			}*/
 		
 		}
 		if (representation != GraphDataRepr.MATRIX) {
-			builder.append("\n");
+			/*builder.append("\n");
 			for (int u = 0; u < adjacencies.length; u++) {
 				builder.append("Adj[");
 				builder.append(u);
 				builder.append("] = ");
 				builder.append(adjacencies[u]);
 				builder.append("\n");
-			}
+			}*/
 		}
 		
 		return builder.toString();

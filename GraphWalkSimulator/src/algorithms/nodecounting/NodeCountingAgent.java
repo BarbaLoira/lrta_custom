@@ -19,20 +19,17 @@ public class NodeCountingAgent extends SimpleAgent {
 	
 	@Override
 	public void onStart() {
-		// nop
-
+		// nop 
 	}
 
 	@Override
 	public void onTurn(int nextTurn) {
-		// nop
-
+		// nop 
 	}
 
 	@Override
 	public int onArrivalInNode(int nextTurn) {
-		int currentNode = position.getCurrentNode();
-		//System.out.printf("[Agent %d] TURN %d, in node %d \n", this.getIdentifier(), nextTurn, currentNode);
+		int currentNode = position.getCurrentNode(); 
 		
 		visitsOfNode[currentNode] = visitsOfNode[currentNode] + 1;
 		
@@ -56,7 +53,7 @@ public class NodeCountingAgent extends SimpleAgent {
 		
 		int nextNode = RandomUtil.chooseAtRandom(nodesWithMinVisits);
 		
-		//System.out.printf(" - next node: %d \n", nextNode);		
+	 System.out.printf(" - next node: %d \n", nextNode);		
 		return nextNode;
 	}
 
