@@ -1,8 +1,10 @@
 package algorithms.nodecounting;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import algorithms.lrta.Util;
 import yaps.graph.Graph;
 import yaps.simulator.multiagent.SimpleAgent;
 import yaps.util.RandomUtil;
@@ -10,51 +12,44 @@ import yaps.util.RandomUtil;
 public class NodeCountingAgent extends SimpleAgent {
 	private Graph graph;
 	private int[] visitsOfNode;
+	private int t = 0;
 
-	public NodeCountingAgent(Graph g, int[] memory){
+	public NodeCountingAgent(Graph g, int[] memory) {
 		super(System.out);
 		this.graph = g;
 		this.visitsOfNode = memory;
 	}
-	
+
 	@Override
 	public void onStart() {
-		// nop 
+		Util.meta = position.getDestination();
 	}
 
 	@Override
 	public void onTurn(int nextTurn) {
-		// nop 
+		// nop
+
 	}
 
 	@Override
 	public int onArrivalInNode(int nextTurn) {
-		int currentNode = position.getCurrentNode(); 
-		
-		visitsOfNode[currentNode] = visitsOfNode[currentNode] + 1;
-		
-		List<Integer> neighbors = graph.getSuccessors(currentNode);
-		
-		int minVisits = Integer.MAX_VALUE;
-		List<Integer> nodesWithMinVisits = new LinkedList<Integer>();
-		
-		for (Integer nodeX : neighbors){
-			if (visitsOfNode[nodeX] < minVisits){
-				minVisits = visitsOfNode[nodeX];
-				nodesWithMinVisits.clear();
-				nodesWithMinVisits.add(nodeX);
-			} else if (visitsOfNode[nodeX] == minVisits){
-				nodesWithMinVisits.add(nodeX);
-			}
-			
+		t = position.getCurrentNode();
+		int proximoVizinho = 0;
+
+		Util.verificarCriacaoHeuristica(t);// verifica se necessita criar heuristica caso sim a heuristica inicia com
+											// valor zero
+
+		List<Integer> neighbors = graph.getSuccessors(t);
+
+		while (t != Util.meta) {
+			proximoVizinho = Util.getVizinhoMenorCustoHeuristica(t, neighbors); // st+1 ← arg min (c(st, s) + ht(s))
+
+			Util.setMaiorHeuristicaParaNodeAtual(t, proximoVizinho); // ht+1(st) ← max{ ht(st), min(c(st, s) + ht(s)}
+
 		}
-		
-		//System.out.printf(" - minimum visits: %d (neighbors: %s) \n", minVisits, nodesWithMinVisits);
-		
-		int nextNode = RandomUtil.chooseAtRandom(nodesWithMinVisits);
-		
-	 System.out.printf(" - next node: %d \n", nextNode);		
-		return nextNode;
+		// graph.getEdgeLength(proximoVizinho, Util.meta);
+		// System.out.printf(" - next node: %d \n", nextNode);
+		return proximoVizinho;
 	}
 
 }

@@ -12,7 +12,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import algorithms.nodecounting.NodeCountingAlgorithm;
+import algorithms.lrta.LrtaAlgorithm;
+import tests.algorithms.TestMainAlgorithm;
 import viewer.control.TMAPGraphDrawUtil;
 import yaps.graph.Graph;
 import yaps.simulator.core.Simulator;
@@ -181,9 +182,10 @@ public class HomeScreen extends JFrame {
 
 		// System.out.println(contentPane.getWidth());
 		// System.out.println(contentPane.getHeight());
-
+int meta = 15;
 		Simulator simulator = new Simulator();
-		NodeCountingAlgorithm algorithm = new NodeCountingAlgorithm();
+		LrtaAlgorithm algorithm = new LrtaAlgorithm(meta);
+		 
 
 		// Now we need to set GUI (TMAPGraphDrawUtil) to the simulator with we
 		// want a gui.

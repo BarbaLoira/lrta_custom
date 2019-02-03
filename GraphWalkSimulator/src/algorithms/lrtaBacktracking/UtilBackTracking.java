@@ -4,22 +4,28 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import algorithms.lrta.Heuristica;
 import algorithms.lrta.Util;
+import repository.UtilResultados;
 import yaps.graph.Graph;
 
 public abstract class UtilBackTracking {
-	private static List<Heuristica> heuristicas = new ArrayList<>();
+	private static List<Heuristica> heuristicas;
 	public static Graph graph;
 	public static int meta;
 
-	private static int estadosConsiderados = 0;
-	private static int quantidadeEscolha = 0;
-	private static long startFirstMove;
+	private static float estadosConsiderados = 0;
+	private static float quantidadeEscolha = 0;
+	private static Calendar startFirstMove;
 
 	public static boolean verificarCriacaoHeuristica(int idNode) {
+		if (heuristicas == null) {
+			heuristicas = UtilResultados.heuristicas;
+		}
 		if (!existeHeuristica(idNode)) {
 			Heuristica h = new Heuristica(idNode, 0);
 			heuristicas.add(h);
@@ -63,14 +69,16 @@ public abstract class UtilBackTracking {
 
 	public static int getVizinhoMenorCustoHeuristica(int nodeIdAtual, List<Integer> neighbors) {
 		int idMenorVizinho = 0, aux = -1, valorVizinho;
-		System.out.println("no atual :" + nodeIdAtual + " heuris " + getValueHeuristica(nodeIdAtual));
+		// System.out.println("no atual :" + nodeIdAtual + " heuris " +
+		// getValueHeuristica(nodeIdAtual));
 		for (int x = 0; x < neighbors.size(); x++) {
 
 			int custo = custoAteVizinho(nodeIdAtual, neighbors.get(x));
 			int heuris = getValueHeuristica(neighbors.get(x));
 			valorVizinho = custo + heuris;
-			System.out.println("\n Vizinho :" + neighbors.get(x) + " custo " + custo + " heuris " + heuris
-					+ "valor total " + valorVizinho);
+			// System.out.println("\n Vizinho :" + neighbors.get(x) + " custo " + custo + "
+			// heuris " + heuris
+			// + "valor total " + valorVizinho);
 
 			/*
 			 * System.out.println( "\n Vizinho :" + neighbors.get(x) + " custo " +
@@ -85,8 +93,9 @@ public abstract class UtilBackTracking {
 				aux = valorVizinho;
 			} else if (aux > valorVizinho) {
 
-				System.out.println("idAux " + idMenorVizinho + " aux  " + aux + " > " + "vizinho " + neighbors.get(x)
-						+ " valorVizinho " + valorVizinho);
+				// System.out.println("idAux " + idMenorVizinho + " aux " + aux + " > " +
+				// "vizinho " + neighbors.get(x)
+				// + " valorVizinho " + valorVizinho);
 
 				idMenorVizinho = neighbors.get(x);
 				aux = valorVizinho;
@@ -145,17 +154,26 @@ public abstract class UtilBackTracking {
 	}
 
 	public static void startFirstMove() {
-		LocalDateTime ldt = LocalDateTime.of(2015, Month.MAY, 4, 4, 30);
-		ldt = ldt.withMinute(0).withSecond(0).withNano(0);
-		startFirstMove = ldt.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(new Date());
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+		startFirstMove = calendar;
 
 	}
 
-	public static long finishFirstMove() {
-		LocalDateTime ldt = LocalDateTime.of(2015, Month.MAY, 4, 4, 30);
-		ldt = ldt.withMinute(0).withSecond(0).withNano(0);
-		long finishFirstMove = ldt.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
-		return finishFirstMove - startFirstMove;
+	public static float finishFirstMove() {
+
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(new Date());
+		calendar.set(Calendar.HOUR_OF_DAY, 23);
+		calendar.set(Calendar.MINUTE, 59);
+		calendar.set(Calendar.SECOND, 59);
+		calendar.set(Calendar.MILLISECOND, 999);
+
+		return (calendar.getTimeInMillis() - startFirstMove.getTimeInMillis());
 	}
 
 }
